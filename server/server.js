@@ -20,13 +20,14 @@ io.on('connection',function(socket){
     console.log("New User Connected");
 
    socket.on('createMessage',function(message){
-       console.log('createMessage',message);
+       io.emit('newMessage',{
+           from:message.from,
+           text:message.text,
+           Created_At:new Date().getTime()
+       })
    })
-
-   socket.emit('newMessage',{
-       from:"Vinay@gmail.com",
-       text:"Hello"
-   })
+//socket.emit emits the message to a single connection but io.emit emits it to every single connection
+   
     socket.on('disconnect',function(){
         console.log("User is disconnected");
     })
