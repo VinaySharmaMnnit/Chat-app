@@ -4,7 +4,7 @@ const path= require('path');
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
-var POST = process.env.PORT || '3000';
+var PORT = process.env.PORT || '3000';
 
 var app  = express();
 //app contains this http.createServer(app) is doing all that is done by server in the background
