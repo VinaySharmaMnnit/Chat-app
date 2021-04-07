@@ -14,7 +14,15 @@ const PublicPath = path.join(__dirname,'../public/');
 
 app.use(express.static(PublicPath));
 
+var io = socketIO(server);
 
+io.on('connection',(socket)=>{
+    console.log("New User Connected");
+
+    socket.on('disconnecting',()=>{
+        console.log("User is disconnected");
+    })
+})
 
 //console.log(PublicPath);
 
