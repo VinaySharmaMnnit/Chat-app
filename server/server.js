@@ -19,12 +19,30 @@ var io = socketIO(server);
 io.on('connection',function(socket){
     console.log("New User Connected");
 
+    socket.emit('newMessage',{
+        from:"Admin",
+        text:"Welcome to the chat app",
+        Created_At:new Date().getTime()
+    })
+
+    socket.broadcast.emit('newMessage',{
+        from:"Admin",
+        text:"New User joined",
+        Created_At:new Date().getTime()
+    })
+
    socket.on('createMessage',function(message){
        io.emit('newMessage',{
            from:message.from,
            text:message.text,
            Created_At:new Date().getTime()
        })
+    //socket.broadcast.emit emits message to all users except the one who sends it
+    // socket.broadcast.emit('newMessage',{
+    //     from:message.from,
+    //     text:message.text,
+    //     Created_At:new Date().getTime()
+    // })
    })
 //socket.emit emits the message to a single connection but io.emit emits it to every single connection
    
