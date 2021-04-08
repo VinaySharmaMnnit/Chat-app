@@ -23,8 +23,27 @@
         </form>
         </div>
     </div>
+    <script id="message-template" type="text/template">
+        <li class="message">
+            <div class="message__title">
+                <h4>{{from}}</h4>
+                <span>{{Created_At}}</span>
+            </div>
+            
+            <div class="message__body">
+                <h4>{{text}}</h4>
+            </div>
+
+        </li>
+
+    </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/libs/jquery-3.6.0.min.js"></script>
+    <script src="./js/libs/moment.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.0/mustache.js"></script>
+    <script type="module" src="./js/libs/mustache.js"></script>
     <script src="./js/index.js"></script>
     
 </body>

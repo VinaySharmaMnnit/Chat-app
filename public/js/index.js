@@ -1,3 +1,4 @@
+
 var socket =   io(); //this is the method which sends request from client to server to open up and maintaining a connection
 socket.on('connect',function(){
      console.log('connected to server');
@@ -7,9 +8,19 @@ socket.on('connect',function(){
 
 socket.on('newMessage',function(message){
     //console.log(message);
-    var li = jQuery('<li></li>');
-    li.text(`${message.from}:${message.text}`);
-    jQuery('#messages').append(li);
+    var template = jQuery('#message-template').html();
+    var time = moment(message.Created_At).format('h:mm:ss a');
+    var html = Mustache.render(template,{
+        text:message.text,
+        from:message.from,
+        Created_At:time
+    });
+
+    jQuery('#messages').append(html);
+    // var time = moment(message.Created_At).format('h:mm:ss a');
+    // var li = jQuery('<li></li>');
+    // li.text(`${message.from} [${time}]:${message.text}`);
+    // jQuery('#messages').append(li);
 })
 
 socket.on('disconnect',function(){
@@ -32,7 +43,8 @@ jQuery('#message-form').on('submit',function(e){
     var messageText =jQuery('[name=message]');
     socket.emit('createMessage',{
         from:'User',
-        text:messageText.val()
+        text:messageText.val(),
+        
     },function(){
         messageText.val('')   //this is for remove the message from message area
     })
