@@ -29,11 +29,12 @@ socket.on('disconnect',function(){
 
 jQuery('#message-form').on('submit',function(e){
     e.preventDefault(); //this prevents the refreshing of page at the time of sending messages
+    var messageText =jQuery('[name=message]');
     socket.emit('createMessage',{
         from:'User',
-        text:jQuery('[name=message]').val()
+        text:messageText.val()
     },function(){
-
+        messageText.val('')   //this is for remove the message from message area
     })
 })
 

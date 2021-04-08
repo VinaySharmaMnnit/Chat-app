@@ -27,7 +27,7 @@ io.on('connection',function(socket){
 
    socket.on('createMessage',function(message,callback){
        io.emit('newMessage',generateMessage(message.from,message.text));
-       callback('This is from server.');
+       callback();
     //socket.broadcast.emit emits message to all users except the one who sends it
     // socket.broadcast.emit('newMessage',{
     //     from:message.from,
