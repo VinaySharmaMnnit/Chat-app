@@ -6,7 +6,10 @@ socket.on('connect',function(){
 })
 
 socket.on('newMessage',function(message){
-    console.log(message);
+    //console.log(message);
+    var li = jQuery('<li></li>');
+    li.text(`${message.from}:${message.text}`);
+    jQuery('#messages').append(li);
 })
 
 socket.on('disconnect',function(){
@@ -14,5 +17,24 @@ socket.on('disconnect',function(){
 
 
 });
+
+
+
+// socket.emit('createMessage',{
+//     from:'Looka',
+//     text:'Hey This is Looka'
+// },function(data){
+//     console.log('Acknowledged',data);
+// });
+
+jQuery('#message-form').on('submit',function(e){
+    e.preventDefault(); //this prevents the refreshing of page at the time of sending messages
+    socket.emit('createMessage',{
+        from:'User',
+        text:jQuery('[name=message]').val()
+    },function(){
+
+    })
+})
 
 
